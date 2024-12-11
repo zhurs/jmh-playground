@@ -45,7 +45,7 @@ open class ListIterations {
         val si2 = arrayOfNulls<String>(data.size)
         val si3 = arrayOfNulls<String>(data.size)
         val si4 = arrayOfNulls<String>(data.size)
-        for(i in data.indices) {
+        for (i in data.indices) {
             ai1[i] = data[i].int1
             ai2[i] = data[i].int2
             ai3[i] = data[i].int3
@@ -66,6 +66,26 @@ open class ListIterations {
     }
 
     @Benchmark
+    fun oneIterationArraysWithInit(bh: Blackhole) {
+        val ai1 = Array<Int>(data.size) { data[it].int1 }
+        val ai2 = Array<Int>(data.size) { data[it].int2 }
+        val ai3 = Array<Int>(data.size) { data[it].int3 }
+        val ai4 = Array<Int>(data.size) { data[it].int4 }
+        val si1 = Array<String>(data.size) { data[it].str1 }
+        val si2 = Array<String>(data.size) { data[it].str2 }
+        val si3 = Array<String>(data.size) { data[it].str3 }
+        val si4 = Array<String>(data.size) { data[it].str4 }
+        bh.consume(ai1)
+        bh.consume(ai2)
+        bh.consume(ai3)
+        bh.consume(ai4)
+        bh.consume(si1)
+        bh.consume(si2)
+        bh.consume(si3)
+        bh.consume(si4)
+    }
+
+    @Benchmark
     fun oneIterationMutableLists(bh: Blackhole) {
         val ai1 = mutableListOf<Int>()
         val ai2 = mutableListOf<Int>()
@@ -75,7 +95,7 @@ open class ListIterations {
         val si2 = mutableListOf<String>()
         val si3 = mutableListOf<String>()
         val si4 = mutableListOf<String>()
-        for(i in data.indices) {
+        for (i in data.indices) {
             ai1.add(data[i].int1)
             ai2.add(data[i].int2)
             ai3.add(data[i].int3)
