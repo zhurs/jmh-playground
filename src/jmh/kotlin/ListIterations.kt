@@ -37,14 +37,14 @@ open class ListIterations {
 
     @Benchmark
     fun oneIterationArrays(bh: Blackhole) {
-        val ai1 = Array<Int>(data.size) { 0 }
-        val ai2 = Array<Int>(data.size) { 0 }
-        val ai3 = Array<Int>(data.size) { 0 }
-        val ai4 = Array<Int>(data.size) { 0 }
-        val si1 = Array<String>(data.size) { "" }
-        val si2 = Array<String>(data.size) { "" }
-        val si3 = Array<String>(data.size) { "" }
-        val si4 = Array<String>(data.size) { "" }
+        val ai1 = arrayOfNulls<Int>(data.size)
+        val ai2 = arrayOfNulls<Int>(data.size)
+        val ai3 = arrayOfNulls<Int>(data.size)
+        val ai4 = arrayOfNulls<Int>(data.size)
+        val si1 = arrayOfNulls<String>(data.size)
+        val si2 = arrayOfNulls<String>(data.size)
+        val si3 = arrayOfNulls<String>(data.size)
+        val si4 = arrayOfNulls<String>(data.size)
         for(i in data.indices) {
             ai1[i] = data[i].int1
             ai2[i] = data[i].int2
