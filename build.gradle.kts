@@ -23,16 +23,17 @@ kotlin {
 
 jmh {
     includes = listOf(
-        """ListIterations"""
+        """RandomIterations"""
     )
     benchmarkMode = listOf("avgt")
 //    profilers = listOf("perfasm")
     timeUnit = "ns"
 
     warmupIterations = 2
-    iterations = 4
+    iterations = 3
     fork = 2
+    threads = 10
 
     warmup = "2s"
-    timeOnIteration = "5s"
+    timeOnIteration = "2s"
 }

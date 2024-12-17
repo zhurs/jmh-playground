@@ -67,23 +67,30 @@ open class ListIterations {
 
     @Benchmark
     fun oneIterationArraysWithInit(bh: Blackhole) {
-        val ai1 = Array<Int>(data.size) { data[it].int1 }
-        val ai2 = Array<Int>(data.size) { data[it].int2 }
-        val ai3 = Array<Int>(data.size) { data[it].int3 }
-        val ai4 = Array<Int>(data.size) { data[it].int4 }
-        val si1 = Array<String>(data.size) { data[it].str1 }
-        val si2 = Array<String>(data.size) { data[it].str2 }
-        val si3 = Array<String>(data.size) { data[it].str3 }
-        val si4 = Array<String>(data.size) { data[it].str4 }
-        bh.consume(ai1)
-        bh.consume(ai2)
-        bh.consume(ai3)
-        bh.consume(ai4)
-        bh.consume(si1)
-        bh.consume(si2)
-        bh.consume(si3)
-        bh.consume(si4)
+        bh.consume(Array(data.size) { data[it].int1 })
+        bh.consume(Array(data.size) { data[it].int2 })
+        bh.consume(Array(data.size) { data[it].int3 })
+        bh.consume(Array(data.size) { data[it].int4 })
+        bh.consume(Array(data.size) { data[it].str1 })
+        bh.consume(Array(data.size) { data[it].str2 })
+        bh.consume(Array(data.size) { data[it].str3 })
+        bh.consume(Array(data.size) { data[it].str4 })
     }
+
+    @Benchmark
+    fun oneIterationArraysWithFun(bh: Blackhole) {
+        bh.consume(data.myToArray { it.int1 })
+        bh.consume(data.myToArray { it.int2 })
+        bh.consume(data.myToArray { it.int3 })
+        bh.consume(data.myToArray { it.int4 })
+        bh.consume(data.myToArray { it.str1 })
+        bh.consume(data.myToArray { it.str2 })
+        bh.consume(data.myToArray { it.str3 })
+        bh.consume(data.myToArray { it.str4 })
+    }
+
+    private inline fun <T, reified R> List<T>.myToArray(f: (T) -> R): Array<R> =
+        Array(size) { f(this[it]) }
 
     @Benchmark
     fun oneIterationMutableLists(bh: Blackhole) {
